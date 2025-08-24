@@ -1,0 +1,24 @@
+name: Deploy AWS Lambda
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ap-northeast-1
+      - name: Deploy Lambda Function
+        uses: aws-actions/aws-lambda-deploy@v1
+        with:
+          function-name: lambda-by-github-actions
+          code-artifacts-dir: ./src
