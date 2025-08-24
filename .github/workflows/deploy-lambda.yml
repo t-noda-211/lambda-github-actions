@@ -22,3 +22,4 @@ jobs:
         with:
           function-name: lambda-by-github-actions
           code-artifacts-dir: ./src
+          role: ${{ secrets.LAMBDA_ROLE_ARN }}
